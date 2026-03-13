@@ -11,8 +11,7 @@ set(FETCHCONTENT_QUIET FALSE)
 FetchContent_Declare(
     ptsd
 
-    URL         https://github.com/ntut-open-source-club/practical-tools-for-simple-design/archive/refs/tags/v0.2.zip
-
+    URL         https://github.com/ntut-open-source-club/practical-tools-for-simple-design/archive/refs/tags/v0.3-rc1.zip
     # Or alternatively if you want to use a specific git commit instead of a release:
     # GIT_REPOSITORY  https://github.com/ntut-open-source-club/practical-tools-for-simple-design.git
     # GIT_TAG         <git_tag>
@@ -35,6 +34,7 @@ add_executable(${PROJECT_NAME}
     ${SRC_DIR}/main.cpp
     ${SRC_FILES}
     ${HEADER_FILES}
+        include/Background.hpp
 )
 
 if(MSVC)
