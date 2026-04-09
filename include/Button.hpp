@@ -1,0 +1,14 @@
+//
+// Created by limbo on 2026/3/27.
+//
+
+#ifndef REPLACE_WITH_YOUR_PROJECT_NAME_BUTTON_HPP
+#define REPLACE_WITH_YOUR_PROJECT_NAME_BUTTON_HPP
+
+
+class Button {
+
+};
+
+
+#endif //REPLACE_WITH_YOUR_PROJECT_NAME_BUTTON_HPP

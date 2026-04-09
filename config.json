@@ -1,0 +1,12 @@
+{
+  "window": {
+    "title": "My Game",
+    "width": 1280,
+    "height": 720,
+    "fullscreen": false
+  },
+  "renderer": {
+    "fps_cap": 60,
+    "default_log_level": 1
+  }
+}
