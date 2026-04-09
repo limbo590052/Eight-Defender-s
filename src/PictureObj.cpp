@@ -1,9 +1,9 @@
-#include "Background.hpp"
+#include "PictureObj.hpp"
 #include "Util/Image.hpp"
 #include "Util/Logger.hpp"
 
-Background::Background(const std::string& path, float zIndex) {
-    LOG_DEBUG("Attempting to load background: {}", path);
+PictureObj::PictureObj(const std::string& path, float zIndex) {
+    LOG_DEBUG("Attempting to load pic: {}", path);
 
     m_Drawable = std::make_shared<Util::Image>(path);
 

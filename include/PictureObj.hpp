@@ -6,13 +6,13 @@
 #include <string>
 #include <memory>
 
-class Background : public Util::GameObject {
+class PictureObj : public Util::GameObject {
 public:
     /**
      * @param imagePath 背景圖片路徑
      * @param zIndex 背景層級 (預設 -10.0f)
      */
-    explicit Background(const std::string& imagePath, float zIndex = -10.0f);
+    explicit PictureObj(const std::string& imagePath, float zIndex = -10.0f);
 
     /**
      * 動態更換背景圖片
