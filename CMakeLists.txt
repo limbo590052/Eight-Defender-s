@@ -22,10 +22,23 @@ set(INC_DIR ${CMAKE_SOURCE_DIR}/include)
 # 加入所有你要編譯的 .cpp
 add_executable(${PROJECT_NAME}
         ${SRC_DIR}/main.cpp
-        ${SRC_DIR}/App.cpp
         ${SRC_DIR}/PictureObj.cpp
         ${SRC_DIR}/Button.cpp
         ${SRC_DIR}/GameUnit.cpp
+        ${SRC_DIR}/MagicPlace.cpp
+        include/MagicPlace.hpp
+        include/MagicPlaceManager.hpp
+        ${SRC_DIR}/MagicPlaceManager.cpp
+        ${SRC_DIR}/AppStart.cpp
+        ${SRC_DIR}/AppUpdate.cpp
+        ${SRC_DIR}/AppEnd.cpp
+        src/JobMenu.cpp
+        include/JobMenu.hpp
+        src/Hero.cpp
+        include/Hero.hpp
+        src/JobDatabase.cpp
+        include/JobDatabase.hpp
+        include/JobDefine.hpp
 )
 
 # 關鍵：這行會讓編譯器去 include 資料夾找你的 App.hpp, GameUnit.hpp 等等
