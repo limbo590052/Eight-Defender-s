@@ -10,15 +10,20 @@ MagicPlace::MagicPlace(const std::string& name, glm::vec2 pos) {
             layers,
             ""
     );
-
+    m_Object->SetVisible(false);
     // 直接設定位置，不要用 auto&
     m_Object->m_Transform.translation = pos;
     m_Object->m_Transform.scale = m_NormalScale;
 }
 
 void MagicPlace::Update() {
-    // 如果已經有英雄站在上面，就不更新魔法陣邏輯（不顯示也不縮放）
-    if (m_IsOccupied || !m_Object->IsVisible()) return;
+    // 確保被佔用時，物件是不顯示的
+    if (m_IsOccupied) {
+        if (m_Object->IsVisible()) {
+            m_Object->SetVisible(false);
+        }
+        return;
+    }
     // 1. 偵測懸停
     bool isHovering = m_Object->IsMouseHovering();
 
@@ -37,8 +42,9 @@ void MagicPlace::Update() {
 }
 
 void MagicPlace::Draw() {
-    if (m_IsOccupied) return;
-    m_Object->Draw();
+    if (!m_IsOccupied) { // 只有在可見且未被佔用時才畫
+        m_Object->Draw(); // Visible->Button->GameObject
+    }
 }
 
 void MagicPlace::SetOnClick(const std::function<void()>& callback) {
