@@ -1,6 +1,5 @@
 #include "JobMenu.hpp"
-#include "config.hpp"
-#include "Util/Logger.hpp"
+#include "Logger.hpp"
 
 JobMenu::JobMenu() {
     // 1. 定義轉職樹
@@ -60,26 +59,21 @@ void JobMenu::RefreshMenu(const std::string& jobKey) {
         // btn->m_Transform.scale = glm::vec2(0.8f, 0.8f);
 
         btn->SetOnClick([this, nextJob]() {
-            if (m_JobTree.count(nextJob)) {
-                this->RefreshMenu(nextJob);
-            } else {
-                // 觸發轉職/部屬
-                if (m_CurrentOwner) {
-                    // 1. 取得座標
-                    glm::vec2 spawnPos = m_CurrentOwner->GetPosition();
+            LOG_INFO("Selected Job: {}", nextJob);
 
-                    // 2. 檢查是「新部屬」還是「舊轉職」
-                    // 如果是轉職，要先刪除舊單位 (假設 m_CurrentOwner 綁定了單位參考)
-
-                    // 3. 生成新英雄
-                    // SpawnHero(nextJob, spawnPos);
-
-                    // 4. 鎖定並隱藏魔法陣
-                    m_CurrentOwner->SetOccupied(true);
-                    m_CurrentOwner->SetVisible(false);
+            if (m_CurrentOwner) {
+                // 1. 通知 App 生成英雄 (不管是不是最終職業)
+                if (m_OnJobSelected) {
+                    m_OnJobSelected(nextJob, m_CurrentOwner);
                 }
-                this->Hide();
+
+                // 2. 鎖定並隱藏魔法陣 (防止重複部屬)
+                m_CurrentOwner->SetOccupied(true);
+                m_CurrentOwner->SetVisible(false);
             }
+
+            // 3. 直接關閉選單，不再進入 RefreshMenu
+            this->Hide();
         });
         m_ActiveButtons.push_back(btn);
     }

@@ -23,6 +23,9 @@ public:
     void Show(std::shared_ptr<MagicPlace> owner);
     void Hide();
     bool IsVisible() const { return m_Visible; }
+    // 定義一個函式型態：接收職業名稱與在哪個魔法陣生成
+    using OnJobSelectedCallback = std::function<void(const std::string&, std::shared_ptr<MagicPlace>)>;
+    void SetOnJobSelectedCallback(OnJobSelectedCallback callback) { m_OnJobSelected = callback; }
 
 private:
     void RefreshMenu(const std::string& jobKey);
@@ -30,6 +33,7 @@ private:
     bool m_Visible = false;
     std::vector<std::shared_ptr<Button>> m_ActiveButtons;
     std::shared_ptr<MagicPlace> m_CurrentOwner; // 紀錄是哪個魔法陣開的
+    OnJobSelectedCallback m_OnJobSelected;
 
     // 固定座標設定 (例如畫面中心下方)
     const glm::vec2 MENU_CENTER_POS = {0, -60};
