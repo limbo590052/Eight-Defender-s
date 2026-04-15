@@ -48,7 +48,7 @@ private:
     std::vector<std::shared_ptr<GameUnit>> m_Enemies;
     std::vector<glm::vec2> Waypoints = {{0, 0}, {100, 0}}; // 路徑點
     std::unique_ptr<MagicPlaceManager> m_PlaceManager;
-    std::unique_ptr<JobMenu> m_SelectionMenu;
+    std::unique_ptr<JobMenu> m_JobMenu;
     int m_RestLimitCommon = 10; // 預設值
     int m_RestLimitSpecial = 10;
 };

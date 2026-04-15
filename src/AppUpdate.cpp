@@ -9,7 +9,7 @@ void App::Update() {
     Util::Logger::SetLevel(Util::Logger::Level::DEBUG);
 
     // --- 1. 狀態判定 ---
-    bool isMenuOpen = m_SelectionMenu->IsVisible();
+    bool isMenuOpen = m_JobMenu->IsVisible();
     bool isCombat = !m_Enemies.empty(); // 是否對戰中
 
     // --- 2. 邏輯更新 (Update) ---
@@ -51,7 +51,7 @@ void App::Update() {
 
     // 右鍵關閉選單 (這部分放在 if 外面，確保打開選單時右鍵能生效)
     if (Util::Input::IsKeyDown(Util::Keycode::MOUSE_RB)) {
-        m_SelectionMenu->Hide();
+        m_JobMenu->Hide();
     }
 
     // --- 3. 渲染區域 (Draw) ---
@@ -88,23 +88,3 @@ void App::Update() {
         m_CurrentState = State::END;
     }
 }
-
-
-//bool isUI = m_SelectionMenu->IsVisible();
-//bool isCombat = !m_Enemies.empty();
-//
-//// 層級 1: 渲染 (永遠執行)
-//DrawEverything();
-//
-//// 層級 2: 選單更新 (UI 優先)
-//m_SelectionMenu->Update();
-//if (isUI) return; // 鎖死背景：只要選單開著，後面所有代碼都不執行
-//
-//// 層級 3: 遊戲互動
-//if (isCombat) {
-//UpdateCombatLogic(); // 更新敵人、塔的攻擊
-//// 這裡不執行 m_PlaceManager->Update()，所以魔法陣被鎖住 (19)
-//// 這裡不執行升級按鈕 Update，所以升級被鎖住 (22)
-//} else {
-//UpdatePrepareLogic(); // 更新魔法陣點擊、下波按鈕 (7, 11)
-//}
