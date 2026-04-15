@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.5...3.25)
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
 project(EightDefenders)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -39,6 +40,8 @@ add_executable(${PROJECT_NAME}
         src/JobDatabase.cpp
         include/JobDatabase.hpp
         include/JobDefine.hpp
+        include/ProgressBar.hpp
+        src/ProgressBar.cpp
 )
 
 # 關鍵：這行會讓編譯器去 include 資料夾找你的 App.hpp, GameUnit.hpp 等等
