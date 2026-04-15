@@ -24,7 +24,7 @@ public:
     void TakeDamage(float dmg, bool isMelee);
 
     bool IsDead() const { return m_Dead; }
-    int GetGold() const { return m_Stats.gold; }
+    int GetCoin() const { return m_Stats.gold; }
     void Update();
     int GetExp() const { return m_Stats.exp; }
     int GetBaseDmg() const { return m_Stats.baseDmg; }
