@@ -19,6 +19,7 @@ FetchContent_MakeAvailable(ptsd)
 # 設定路徑變數
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 set(INC_DIR ${CMAKE_SOURCE_DIR}/include)
+include_directories(include)
 
 # 加入所有你要編譯的 .cpp
 add_executable(${PROJECT_NAME}
@@ -33,15 +34,17 @@ add_executable(${PROJECT_NAME}
         ${SRC_DIR}/AppStart.cpp
         ${SRC_DIR}/AppUpdate.cpp
         ${SRC_DIR}/AppEnd.cpp
-        src/JobMenu.cpp
+        ${SRC_DIR}/JobMenu.cpp
         include/JobMenu.hpp
-        src/Hero.cpp
+        ${SRC_DIR}/Hero.cpp
         include/Hero.hpp
-        src/JobDatabase.cpp
+        ${SRC_DIR}/JobDatabase.cpp
         include/JobDatabase.hpp
         include/JobDefine.hpp
+        ${SRC_DIR}/ProgressBar.cpp
+        ${SRC_DIR}/ResourceManager.cpp
+        include/ResourceManager.hpp
         include/ProgressBar.hpp
-        src/ProgressBar.cpp
 )
 
 # 關鍵：這行會讓編譯器去 include 資料夾找你的 App.hpp, GameUnit.hpp 等等

@@ -34,13 +34,17 @@ void App::Update() {
         // 敵人邏輯更新
         for (auto it = m_Enemies.begin(); it != m_Enemies.end(); ) {
             (*it)->Update();
+
             if ((*it)->IsDead()) {
                 if ((*it)->GetPathIndex() >= Waypoints.size()) {
+                    // 敵方抵達終點，扣除基地血量
                     m_BaseHp -= (*it)->GetBaseDmg();
                 } else {
-                    m_Gold += (*it)->GetGold();
+                    // 敵方被擊殺，獲取複合資源
+                    m_Resources->AddCoin((*it)->GetCoin());
+                    m_Resources->AddExp((*it)->GetExp());
                 }
-                it = m_Enemies.erase(it);
+                it = m_Enemies.erase(it); // 移除敵方
             } else {
                 ++it;
             }
