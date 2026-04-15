@@ -21,7 +21,7 @@ class App
 public:
     enum class State
     {
-        START,
+        INIT,
         UPDATE,
         END,
         // PREPARE,
@@ -31,14 +31,14 @@ public:
 
     State GetCurrentState() const { return m_CurrentState; }
 
-    void Start();
+    void Init();
 
     void Update();
 
     void End(); // NOLINT(readability-convert-member-functions-to-static)
 
 private:
-    State m_CurrentState = State::START;
+    State m_CurrentState = State::INIT;
 
     // 剛才報錯缺少的變數都在這裡定義
     std::shared_ptr<PictureObj> m_Background;
@@ -46,6 +46,7 @@ private:
     std::shared_ptr<PictureObj> m_startText;
 
     int m_BaseHp = 10;
+
     std::unique_ptr<ResourceManager> m_Resources;
     std::vector<std::shared_ptr<GameUnit>> m_Enemies;
     std::vector<std::shared_ptr<Hero>> m_Heroes;

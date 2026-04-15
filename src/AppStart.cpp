@@ -3,7 +3,7 @@
 #include "Util/Logger.hpp"
 #include "Hero.hpp"
 
-void App::Start()
+void App::Init()
 {
     Util::Logger::SetLevel(Util::Logger::Level::DEBUG);
     LOG_TRACE("App Start");
@@ -21,17 +21,15 @@ void App::Start()
         startsPics,
         "");
 
-    m_StartButton->SetOnClick([this]()
-                              {
-        LOG_DEBUG("Game Start! Clearing UI...");
-
-        // 1. 切換遊戲狀態
-        m_CurrentState = State::UPDATE;
-
-        // 2. 清除 UI 物件指標 (shared_ptr 會自動處理記憶體)
-        m_StartButton->SetVisible(false);
-        m_startText->SetVisible(false);
-        m_PlaceManager->SetAllVisible(true); });
+    m_StartButton->SetOnClick(
+        [this]()
+        {
+            LOG_DEBUG("Game Start! Clearing UI...");
+            // 2. 清除 UI 物件指標 (shared_ptr 會自動處理記憶體)
+            m_StartButton->SetVisible(false);
+            m_startText->SetVisible(false);
+            m_PlaceManager->SetAllVisible(true);
+        });
 
     // 加入文字圖片作為子物件
     m_startText = std::make_shared<PictureObj>(RESOURCE_DIR "/StartText.png");
@@ -72,5 +70,6 @@ void App::Start()
             m_PlaceManager->SetAllVisible(false);
         } });
 
+    m_Resources = std::make_unique<ResourceManager>(0, 0);
     m_CurrentState = State::UPDATE;
 }

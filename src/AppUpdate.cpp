@@ -79,16 +79,18 @@ void App::Update() {
         m_StartButton->Draw();
     }
 
-    for (auto& enemy : m_Enemies) {
-        enemy->Draw();
-    }
-
-    for (auto& hero : m_Heroes) {
-        hero->Draw();
-    }
+    for (auto& enemy : m_Enemies) {enemy->Draw();}
+    for (auto& hero : m_Heroes) {hero->Draw();}
 
     // 最後才畫選單，確保選單卡片在所有東西的最前方
     m_JobMenu->Draw();
+
+    ImGui::Begin("HUD");
+    // 顯示經驗值
+    ImGui::Text("Exp: %d", m_Resources->GetExp());
+    // 顯示金幣
+    ImGui::Text("Coin: %d", m_Resources->GetCoin());
+    ImGui::End();
 
     // --- 4. 系統判定 ---
     if (m_BaseHp <= 0) {

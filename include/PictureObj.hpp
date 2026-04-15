@@ -29,6 +29,8 @@ public:
      * 取得目前位置
      */
     [[nodiscard]] glm::vec2 GetPosition() const { return m_Transform.translation; }
+
+    bool IsVisible(){return m_Visible;};
 };
 
 #endif // BACKGROUND_HPP
