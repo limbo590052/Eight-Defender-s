@@ -4,8 +4,8 @@
 #include "Util/Keycode.hpp"
 #include "Util/Logger.hpp"
 
-
-void App::Update() {
+void App::Update()
+{
     Util::Logger::SetLevel(Util::Logger::Level::DEBUG);
 
     // --- 1. 狀態判定 ---
@@ -17,47 +17,60 @@ void App::Update() {
     m_JobMenu->Update();
 
     // 如果選單「沒打開」，才執行遊戲主體邏輯
-    if (!isMenuOpen) {
+    if (!isMenuOpen)
+    {
         // 非對戰中才允許魔法陣互動 (轉職)
-        if (!isCombat) {
+        if (!isCombat)
+        {
             m_PlaceManager->Update();
         }
-        for (auto& hero : m_Heroes) {
+        for (auto &hero : m_Heroes)
+        {
             hero->Update();
         }
 
         // 按鈕更新
-        if (m_StartButton) {
+        if (m_StartButton)
+        {
             m_StartButton->Update();
         }
 
         // 敵人邏輯更新
-        for (auto it = m_Enemies.begin(); it != m_Enemies.end(); ) {
+        for (auto it = m_Enemies.begin(); it != m_Enemies.end();)
+        {
             (*it)->Update();
 
-            if ((*it)->IsDead()) {
-                if ((*it)->GetPathIndex() >= Waypoints.size()) {
+            if ((*it)->IsDead())
+            {
+                if ((*it)->GetPathIndex() >= Waypoints.size())
+                {
                     // 敵方抵達終點，扣除基地血量
                     m_BaseHp -= (*it)->GetBaseDmg();
-                } else {
+                }
+                else
+                {
                     // 敵方被擊殺，獲取複合資源
                     m_Resources->AddCoin((*it)->GetCoin());
                     m_Resources->AddExp((*it)->GetExp());
                 }
                 it = m_Enemies.erase(it); // 移除敵方
-            } else {
+            }
+            else
+            {
                 ++it;
             }
         }
 
         // 偵測滑鼠位置 (Log)
-        if (Util::Input::IsKeyDown(Util::Keycode::MOUSE_LB)) {
+        if (Util::Input::IsKeyDown(Util::Keycode::MOUSE_LB))
+        {
             LOG_DEBUG("M Pos: X{}, Y{}", Util::Input::GetCursorPosition().x, Util::Input::GetCursorPosition().y);
         }
     }
 
     // 右鍵關閉選單 (這部分放在 if 外面，確保打開選單時右鍵能生效)
-    if (Util::Input::IsKeyDown(Util::Keycode::MOUSE_RB)) {
+    if (Util::Input::IsKeyDown(Util::Keycode::MOUSE_RB))
+    {
         m_JobMenu->Hide();
     }
 
@@ -65,39 +78,58 @@ void App::Update() {
     // 注意：所有的 Draw 必須放在 if (!isMenuOpen) 之外！
     // 這樣選單打開時，背景物件才會繼續被繪製，不會黑屏。
 
-    if (m_Background) {
+    if (m_Background)
+    {
         m_Background->Draw();
     }
 
     m_PlaceManager->Draw();
 
-    if (m_startText) {
+    if (m_startText)
+    {
         m_startText->Draw();
     }
 
-    if (m_StartButton) {
+    if (m_StartButton)
+    {
         m_StartButton->Draw();
     }
 
-    for (auto& enemy : m_Enemies) {enemy->Draw();}
-    for (auto& hero : m_Heroes) {hero->Draw();}
+    for (auto &enemy : m_Enemies)
+    {
+        enemy->Draw();
+    }
+    for (auto &hero : m_Heroes)
+    {
+        hero->Draw();
+    }
 
     // 最後才畫選單，確保選單卡片在所有東西的最前方
     m_JobMenu->Draw();
 
-    ImGui::Begin("HUD");
-    // 顯示經驗值
-    ImGui::Text("Exp: %d", m_Resources->GetExp());
-    // 顯示金幣
-    ImGui::Text("Coin: %d", m_Resources->GetCoin());
-    ImGui::End();
+    if (m_StartButton && !m_StartButton->IsVisible())
+    {
+        // 只有當開始按鈕消失（遊戲開始）後，才顯示 HUD
+        ImGui::Begin("Resources", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove);
+
+        // 顯示經驗值與金幣
+        if (m_Resources)
+        {
+            ImGui::Text("Exp: %d", m_Resources->GetExp());
+            ImGui::Text("Coin: %d", m_Resources->GetCoin());
+        }
+
+        ImGui::End();
+    }
 
     // --- 4. 系統判定 ---
-    if (m_BaseHp <= 0) {
+    if (m_BaseHp <= 0)
+    {
         m_CurrentState = State::END;
     }
 
-    if (Util::Input::IsKeyUp(Util::Keycode::ESCAPE) || Util::Input::IfExit()) {
+    if (Util::Input::IsKeyUp(Util::Keycode::ESCAPE) || Util::Input::IfExit())
+    {
         m_CurrentState = State::END;
     }
 }
