@@ -14,13 +14,16 @@ void App::Update() {
 
     // --- 2. 邏輯更新 (Update) ---
     // 選單邏輯永遠優先處理
-    m_SelectionMenu->Update();
+    m_JobMenu->Update();
 
     // 如果選單「沒打開」，才執行遊戲主體邏輯
     if (!isMenuOpen) {
         // 非對戰中才允許魔法陣互動 (轉職)
         if (!isCombat) {
             m_PlaceManager->Update();
+        }
+        for (auto& hero : m_Heroes) {
+            hero->Update();
         }
 
         // 按鈕更新
@@ -76,8 +79,12 @@ void App::Update() {
         enemy->Draw();
     }
 
+    for (auto& hero : m_Heroes) {
+        hero->Draw();
+    }
+
     // 最後才畫選單，確保選單卡片在所有東西的最前方
-    m_SelectionMenu->Draw();
+    m_JobMenu->Draw();
 
     // --- 4. 系統判定 ---
     if (m_BaseHp <= 0) {
