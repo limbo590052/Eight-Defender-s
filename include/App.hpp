@@ -9,6 +9,7 @@
 #include "Input.hpp"
 #include "MagicPlaceManager.hpp"
 #include "JobMenu.hpp"
+#include "Hero.hpp"
 
 #define MAKE_BUTTON(var, normal, hover, click) \
     var = std::make_shared<Button>(#var, normal, hover, click)
@@ -46,6 +47,7 @@ private:
     int m_Gold = 0;
     int m_Exp = 0;
     std::vector<std::shared_ptr<GameUnit>> m_Enemies;
+    std::vector<std::shared_ptr<Hero>> m_Heroes;
     std::vector<glm::vec2> Waypoints = {{0, 0}, {100, 0}}; // 路徑點
     std::unique_ptr<MagicPlaceManager> m_PlaceManager;
     std::unique_ptr<JobMenu> m_JobMenu;
