@@ -14,6 +14,36 @@ float CalcSpeed(int frames) {
     return 100.0f / (static_cast<float>(frames) / 30.0f);
 }
 
+// 輔助函式：將字串轉為 Enum (假設你在 JobDefine 有對應)
+Job StringToJob(const std::string& name) {
+    static const std::map<std::string, Job> nameToJobMap = {
+            {"Fencer", Job::Fencer},
+            {"Hunter", Job::Hunter},
+            {"Thief", Job::Thief},
+            {"Warrior", Job::Warrior},
+            {"Knight", Job::Knight},
+            {"Archer", Job::Archer},
+            {"Arms", Job::Arms},
+            {"Ninja", Job::Ninja},
+            {"Mechanic", Job::Mechanic},
+            {"Samurai", Job::Samurai},
+            {"MagicFighter", Job::MagicFighter},
+            {"DarkLord", Job::DarkLord},
+            {"DragonKnight", Job::DragonKnight},
+            {"Ranger", Job::Ranger},
+            {"Thrower", Job::Thrower},
+            {"Sniper", Job::Sniper},
+            {"Gunner", Job::Gunner},
+            {"Assassin", Job::Assassin},
+            {"Pirate", Job::Pirate},
+            {"Trapper", Job::Trapper},
+            {"Alchemist", Job::Alchemist}
+    };
+
+    auto it = nameToJobMap.find(name);
+    return (it != nameToJobMap.end()) ? it->second : Job::Fencer;
+}
+
 std::map<Job, JobStats> JobDatabase = {
         // ---------------------- Fencer 分支 (近戰輸出/坦克) ----------------------
 
@@ -89,7 +119,7 @@ std::map<Job, JobStats> JobDatabase = {
                               28.0f,
                               100,
                               {ResourceType::Exp, 40.0f, 1.0f},
-                              {.flyingMultiplier = 1.5f}}}, // 特性：對飛行系大量傷害
+                              {.flyingMultiplier = 1.2f}}}, // 特性：對飛行系大量傷害
 
         {Job::Archer, {
                               Job::Archer,

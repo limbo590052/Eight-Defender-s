@@ -13,6 +13,8 @@ enum class Job {
 
 enum class ResourceType { Gold, Exp, SpecialExp };
 
+Job StringToJob(const std::string& name);
+
 struct JobProperties {
     int slowAmount = 0;             // [修改] 減少速度的絕對值 (0~9)
     float knockbackForce = 0.0f;
