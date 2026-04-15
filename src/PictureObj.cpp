@@ -2,13 +2,15 @@
 #include "Util/Image.hpp"
 #include "Util/Logger.hpp"
 
-PictureObj::PictureObj(const std::string& path, float zIndex) {
+PictureObj::PictureObj(const std::string &path, float zIndex)
+{
     LOG_DEBUG("Attempting to load pic: {}", path);
 
     m_Drawable = std::make_shared<Util::Image>(path);
 
     // 檢查圖片是否載入成功 (如果失敗，Util::Image 通常會換成 MissingTexture)
-    if (m_Drawable == nullptr) {
+    if (m_Drawable == nullptr)
+    {
         LOG_ERROR("Drawable creation failed for path: {}", path);
     }
 
