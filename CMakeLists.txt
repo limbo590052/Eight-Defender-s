@@ -45,6 +45,8 @@ add_executable(${PROJECT_NAME}
         ${SRC_DIR}/ResourceManager.cpp
         include/ResourceManager.hpp
         include/ProgressBar.hpp
+        src/LevelInfoUI.cpp
+        include/LevelInfoUI.hpp
 )
 
 # 關鍵：這行會讓編譯器去 include 資料夾找你的 App.hpp, GameUnit.hpp 等等

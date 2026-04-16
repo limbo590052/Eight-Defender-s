@@ -21,15 +21,19 @@ void App::Init()
         startsPics,
         "");
 
-    m_StartButton->SetOnClick(
-        [this]()
-        {
-            LOG_DEBUG("Game Start! Clearing UI...");
-            // 2. 清除 UI 物件指標 (shared_ptr 會自動處理記憶體)
-            m_StartButton->SetVisible(false);
-            m_startText->SetVisible(false);
-            m_PlaceManager->SetAllVisible(true);
-        });
+    m_StartButton->SetOnClick([this]() {
+        LOG_INFO("Game Start!");
+
+        // 1. 隱藏開始按鈕與文字
+        m_StartButton->SetVisible(false);
+        m_startText->SetVisible(false);
+
+        // 2. 設定預覽資訊
+        m_LevelInfoUI->SetLevel(1, "Normal", 3);
+        m_LevelInfoUI->SetVisible(true);
+
+        m_PlaceManager->SetAllVisible(true);
+    });
 
     // 加入文字圖片作為子物件
     m_startText = std::make_shared<PictureObj>(RESOURCE_DIR "/StartText.png");
@@ -44,7 +48,11 @@ void App::Init()
     m_JobMenu = std::make_unique<JobMenu>();
     m_PlaceManager = std::make_unique<MagicPlaceManager>();
 
-    // 範例：點擊任何一個魔法陣，就印出它的位置
+    m_LevelInfoUI = std::make_unique<LevelInfoUI>();
+    m_LevelInfoUI->SetVisible(false);
+    m_LevelInfoUI->m_Transform.translation = {0, 0};
+
+    // 綁定
     m_PlaceManager->SetOnPlaceClickedCallback([this](std::shared_ptr<MagicPlace> clickedPlace)
                                               {
         glm::vec2 pos = clickedPlace->GetPosition();

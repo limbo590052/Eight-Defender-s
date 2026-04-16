@@ -95,6 +95,11 @@ void App::Update()
         m_StartButton->Draw();
     }
 
+    if(m_LevelInfoUI)
+    {
+        m_LevelInfoUI->Draw();
+    }
+
     for (auto &enemy : m_Enemies)
     {
         enemy->Draw();
@@ -110,7 +115,7 @@ void App::Update()
     if (m_StartButton && !m_StartButton->IsVisible())
     {
         // 只有當開始按鈕消失（遊戲開始）後，才顯示 HUD
-        ImGui::Begin("Resources", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove);
+        ImGui::Begin("Resources", nullptr);
 
         // 顯示經驗值與金幣
         if (m_Resources)

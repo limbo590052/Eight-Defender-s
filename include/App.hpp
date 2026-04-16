@@ -12,6 +12,7 @@
 #include "Hero.hpp"
 #include "Text.hpp"
 #include "ResourceManager.hpp"
+#include "LevelInfoUI.hpp"
 
 #define MAKE_BUTTON(var, normal, hover, click) \
     var = std::make_shared<Button>(#var, normal, hover, click)
@@ -47,6 +48,7 @@ private:
 
     int m_BaseHp = 10;
 
+    std::unique_ptr<LevelInfoUI> m_LevelInfoUI;
     std::unique_ptr<ResourceManager> m_Resources;
     std::vector<std::shared_ptr<GameUnit>> m_Enemies;
     std::vector<std::shared_ptr<Hero>> m_Heroes;
